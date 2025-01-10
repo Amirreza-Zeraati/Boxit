@@ -1,28 +1,18 @@
+version: '3.8'
+
 services:
-  web:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        TIMEOUT: 100000
-    container_name: fastapi_app
-    command: >
-      uvicorn main:app
-      --host 0.0.0.0
-      --port 8000
-    volumes:
-      - .:/fastapi_app
     ports:
       - "8000:8000"
     environment:
-      DATABASE_NAME: ${POSTGRES_DB}
-      DATABASE_USER: ${POSTGRES_USER}
-      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${POSTGRES_DB}
     networks:
-      - mynetwork
+      - shared-net
 
 networks:
-  mynetwork:
+  shared-net:
     external: true
+

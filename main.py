@@ -10,7 +10,7 @@ from datetime import datetime
 from sqlalchemy import DateTime
 
 
-DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/steam"
+DATABASE_URL = "postgresql://postgres:postgres@db:5432/steam"
 engine = create_engine(DATABASE_URL)
 session = Session(engine)
 Base = declarative_base()
